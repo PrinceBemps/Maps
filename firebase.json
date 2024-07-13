@@ -1,0 +1,25 @@
+{
+    "hosting": {
+        "site": "charter-f5944-34694",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+      },
+      "functions": {
+        "source": "functions"
+      }
+  }
+  

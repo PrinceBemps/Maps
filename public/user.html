@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #111;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header .logout {
+            padding: 10px 20px;
+            background-color: #4ecca3;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .picture-panel {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .map-image-wrapper {
+            width: 1000px;
+            height: 600px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .map-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .description {
+            width: 600px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .download-button{
+            padding: 10px 20px;
+            background-color: #4ecca3;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        }
+
+        .nav-button:nth-of-type(1) {
+        left: 0;
+        }
+
+        .nav-button:nth-of-type(2) {
+        right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome, <span id="username-display"></span></h1>
+        <button class="logout" onclick="logout()" id="logout-btn">LOGOUT</button>
+    </div>
+    <div class="content">
+        <div class="picture-panel" id="map-panel">
+                <div class="map-image-wrapper" id="map-panel">
+                    <div id="legend" class="legend-container">
+                        <!-- Legend items will be dynamically added here -->
+                    </div>
+                <button class="nav-button" onclick="prevMap()" id="prev-map">&#9664;</button>
+                <img id="map-image" src="" alt="Map Image">
+                <button class="nav-button" onclick="nextMap()" id="next-map">&#9654;</button>
+            </div>
+        </div>
+        <div class="panel-buttons">
+            <button class="download-button" onclick="downloadMap()" id="download-map">Download</button>
+        </div>
+        <div class="description">
+            <h2>Description</h2>
+            <p id="map-description"></p>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-init.js"></script>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
