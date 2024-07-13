@@ -41,6 +41,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
 
       // Store user info in Firestore
       await db.collection('users').doc(user.uid).set({
+          uid: user.uid,
           email: user.email,
           createdAt: new Date(),
       });
