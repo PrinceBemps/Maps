@@ -14,18 +14,18 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+      const userCredential = await auth.signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
 
-    const adminDoc = await getDoc(doc(db, 'admins', user.uid));
-    if (adminDoc.exists()) {
-      window.location.href = 'admin.html';
-    } else {
-      window.location.href = 'user.html';
-    }
+      const adminDoc = await db.collection('admins').doc(user.uid).get();
+      if (adminDoc.exists) {
+          window.location.href = 'admin.html'; // Redirect to admin page
+      } else {
+          window.location.href = 'user.html'; // Redirect to user page
+      }
   } catch (error) {
-    console.error('Error logging in:', error);
-    alert('Login failed. Please check your credentials and try again.');
+      console.error('Error logging in:', error);
+      alert('Login failed: ' + error.message);
   }
 });
 
@@ -36,15 +36,20 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
 
-    await setDoc(doc(db, 'users', user.uid), { email: user.email });
+      // Store user info in Firestore
+      await db.collection('users').doc(user.uid).set({
+          email: user.email,
+          createdAt: new Date(),
+      });
 
-    window.location.href = 'user.html';
+      alert('Account created successfully!');
+      window.location.href = 'user.html'; // Redirect to user page
   } catch (error) {
-    console.error('Error signing up:', error);
-    alert('Sign up failed. Please try again.');
+      console.error('Error signing up:', error);
+      alert('Sign up failed: ' + error.message);
   }
 });
 
