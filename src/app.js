@@ -13,21 +13,25 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  try {
-      const userCredential = await auth.signInWithEmailAndPassword(email, password);
-      const user = userCredential.user;
+  console.log("Attempting to log in with", email);
 
-      const adminDoc = await db.collection('admins').doc(user.uid).get();
-      if (adminDoc.exists) {
-          window.location.href = 'admin.html'; // Redirect to admin page
-      } else {
-          window.location.href = 'user.html'; // Redirect to user page
-      }
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Check if user is admin
+    const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+    if (adminDoc.exists()) {
+      window.location.href = 'admin.html'; // Redirect to admin page
+    } else {
+      window.location.href = 'user.html'; // Redirect to user page
+    }
   } catch (error) {
-      console.error('Error logging in:', error);
-      alert('Login failed: ' + error.message);
+    console.error('Error logging in:', error);
+    alert('Login failed: ' + error.message);
   }
 });
+
 
 // Sign-up functionality
 document.getElementById('signupForm').addEventListener('submit', async (e) => {
@@ -44,6 +48,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
           uid: user.uid,
           email: user.email,
           createdAt: new Date(),
+          role: user,
       });
 
       alert('Account created successfully!');
