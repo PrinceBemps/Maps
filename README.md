@@ -1,6 +1,6 @@
 Prerequisites:
 
-Node.js and npm (or yarn) installed on your system. You can download them from https://nodejs.org/en
+Node.js and npm (or yarn) are installed on your system. You can download them from https://nodejs.org/en
 Installation:
 
 Clone or download the project repository.
@@ -17,8 +17,7 @@ Running the Application:
 Start the development server
 
 Bash
-npm run dev  # or yarn dev (if a script is defined)
-npm start to works great
+npm start 
 Use code with caution.
 
 This will typically start a development server at http://localhost:PORT (e.g., http://localhost:8080). The exact port might vary depending on the project configuration.
